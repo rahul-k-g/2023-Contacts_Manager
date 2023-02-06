@@ -1,0 +1,27 @@
+{
+  "name": "2023-contacts_manager_back_end",
+  "version": "1.0.0",
+  "description": "backend with mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahul-k-g/2023-Contacts_Manager_back_end.git"
+  },
+  "keywords": [
+    "express",
+    "mongoose",
+    "cors"
+  ],
+  "author": "chandini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahul-k-g/2023-Contacts_Manager_back_end/issues"
+  },
+  "homepage": "https://github.com/rahul-k-g/2023-Contacts_Manager_back_end#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
