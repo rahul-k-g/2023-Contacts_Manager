@@ -5,7 +5,7 @@ require('dotenv/config');
 const app= express()
 mongoose.set('strictQuery', true);
 //connection to db
-mongoose.connect("mongodb://localhost/contact_mern")//mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")
     .then(() => console.log('database Connected!'))
     .catch((err) => console.log('Error!!! to connect the database'+err.message))
 
@@ -14,7 +14,7 @@ mongoose.connect("mongodb://localhost/contact_mern")//mongodb+srv://dushyantBhar
 
 //import model
 const userModel = require("./src/models/contactModels")
-const contactModel = require("./src/models/userModel")
+
 
 
 
@@ -28,9 +28,9 @@ app.use(morgan("tiny"));// it will give time taken when api is login to our cons
 // const UserRoute = require('./src/routes/UserRoute');
 
 //routes path
-app.use("/api",require("./src/Routes/userRoute"));
+app.use("/api/v1",require("./src/Routes/userRoute"));
 
-
+app.use("/api/v1",require("./src/Routes/contactRoute"));
 
 //Welcome Page
 app.use("/",(req,res)=>{
