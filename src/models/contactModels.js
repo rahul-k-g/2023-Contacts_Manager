@@ -10,8 +10,7 @@ const contactSchema = new schema({
     phoneNumber:Number,
     Country:String,
     date:{type:String, default:Date.now()},
-    created_by:{type:String, required:true}
-
+    created_by:{type:String, required:true} 
 })
 const contactModel = mongoose.model("contacts", contactSchema)
 module.exports = contactModel

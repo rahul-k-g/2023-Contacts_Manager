@@ -56,9 +56,6 @@ router.get('/contacts/:email', async (req, res) => {
     })
   }
 })
-
-
-
 //geting all contacts with email
 router.get('/search/:email', async (req, res) => {
   try {
