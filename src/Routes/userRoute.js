@@ -3,14 +3,57 @@ const bcrypt = require('bcrypt');
 const { body } = require('express-validator');
 const UserModel = require("../models/userModel");
 var bodyParser = require('body-parser')
+var jwt = require('jsonwebtoken');
 router.use(bodyParser.json())
 
 
 var bodyParser = require('body-parser')
 router.use(bodyParser.json())
 
-router.post("/login");
-router.post('/register',body('email').isEmail(),body('password').isLength({ min: 6, max: 16 }), async (req, res) => {
+
+//Login API
+router.post("/login",body('email').isEmail(),body('password').notEmpty(), async (req, res) => {
+    console.log("from login route")
+    try{
+        console.log(req.body)
+        const { email, password } = req.body;
+        const userData = await UserModel.findOne({ email });
+        if (userData) {
+            let result = await bcrypt.compare(password, userData.password);
+            if (result) {
+                const token = jwt.sign({
+                    exp: Math.floor(Date.now() / 1000) + 60 * 60,//expires within this time
+                    data: userData._id,
+                },
+                    process.env.JWT_SECRET
+                );
+                res.status(200).json({
+                    status: "Success",
+                    message: "User logged in Successfully",
+                    token: token,
+                });
+            } else {
+                res.status(400).json({
+                    status: "Password does not matched",
+                    message: "Wrong Password",
+                });
+            }
+        }else{
+            res.status(400).json({
+                status:"Failed",
+                message:"User is not registered. Pls signup before signin"
+            })
+        }
+    }catch(e) {
+        res.status(400).json({
+            status: "Failed",
+            message: e.message,
+        });
+    }
+});
+
+//register API
+router.post('/register', async (req, res) => {//
     try {
         console.log(req.body)
         const { email, password, confirmPassword } = req.body;
