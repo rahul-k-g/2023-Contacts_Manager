@@ -6,12 +6,9 @@ const app= express()
 var jwt = require('jsonwebtoken');
 mongoose.set('strictQuery', true);
 //connection to db
-mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")////mongodb://localhost/contact_mern
     .then(() => console.log('database Connected!'))
     .catch((err) => console.log('Error!!! to connect the database'+err.message))
-
-
-
 
 //import model
 const userModel = require("./src/models/contactModels")
