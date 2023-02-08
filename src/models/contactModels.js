@@ -9,7 +9,8 @@ const contactSchema = new schema({
     email:{type:String, required:true},
     phoneNumber:Number,
     Country:String,
-    date:{type:String, default:Date.now()}
+    date:{type:String, default:Date.now()},
+    created_by:{type:String, required:true}
 
 })
 const contactModel = mongoose.model("contacts", contactSchema)
