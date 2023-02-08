@@ -53,7 +53,7 @@ router.post("/login",body('email').isEmail(),body('password').notEmpty(), async 
 });
 
 //register API
-router.post('/register',body('email').isEmail(),body('password').isLength({ min: 6, max: 16 }), async (req, res) => {
+router.post('/register', async (req, res) => {//
     try {
         console.log(req.body)
         const { email, password, confirmPassword } = req.body;
