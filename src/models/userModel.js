@@ -6,7 +6,7 @@ const ObjectId=Schema.ObjectId;
 const UserSchema=new Schema({
     email:{type:String,unique:true, required:true }
     ,password:{type : String, required:true},
-    userPhotoUrl:{type:String,default:"https://img.freepik.com/free-icon/user_318-790139.jpg"},
+    userPhotoUrl:{type:String,default:"https://img.freepik.com/free-icon/user_318-790139.jpg"},//need to change
     name: String,
     accessDesignation: {type :String, default:"normal" }
 })
