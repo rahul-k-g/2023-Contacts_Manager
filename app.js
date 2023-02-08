@@ -3,29 +3,49 @@ const mongoose = require("mongoose")
 const morgan = require("morgan")
 require('dotenv/config');
 const app= express()
+var jwt = require('jsonwebtoken');
 mongoose.set('strictQuery', true);
 //connection to db
-mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")////mongodb://localhost/contact_mern
     .then(() => console.log('database Connected!'))
     .catch((err) => console.log('Error!!! to connect the database'+err.message))
 
-
-
-
 //import model
 const userModel = require("./src/models/contactModels")
-
-
-
-
-
 
 //middlewares
 app.use(express.json()); //send back respond in json format
 app.use(morgan("tiny"));// it will give time taken when api is login to our console
 
-//import routes
-// const UserRoute = require('./src/routes/UserRoute');
+//token verification
+const tokenVerification = (req,res,next)=>{
+  if(req.headers.authorization){
+      const token = req.headers.authorization;
+      if(token){
+        jwt.verify(token,process.env.SECRET,(err,decoded)=>{
+          if(err){
+            return res.status(403).json({
+              status:"Failed",
+              Error:err.name,
+              message:err.name=="JsonWebTokenError"?"Not a valid Token. Pls login again":err.message
+            })
+          }
+          req.userID = decoded.data;
+          next();
+        })
+      }else{
+        return res.status(403).json({
+          status:"Failed",
+          message:"Token is missing"
+        })
+      }
+  }else{
+    return res.status(403).json({
+      status:"Failed",
+      message:"unauthorised access. Pls login before access"
+    })
+  }
+}
 
 //routes path
 app.use("/api/v1",require("./src/Routes/userRoute"));
