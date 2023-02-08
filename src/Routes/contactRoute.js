@@ -20,6 +20,42 @@ router.post("/contacts", async (req, res) => {
         });
     }
   });
+
+
+//adding allcontacts 
+router.get('/contacts',async (req,res)=>{
+    try {
+      const allcontact = await Contact.find()  
+      res.status(200).json({
+          status: 'Success',  
+          allcontact
+      })
+    } catch (e) {
+      res.status(500).json({
+          status: 'Failed',
+          messege: e.messege
+      })
+    }
+  })
+
+
+
+  //get search contact 
+router.get('/search/:email',async (req,res)=>{
+    try {
+      const email = req.params.email
+          const allcontact = await Contact.find({email:email})
+      res.status(200).json({
+          status: 'Success',  
+          allcontact
+      })
+    } catch (error) {       
+      res.status(500).json({
+          status: 'Failed',
+          messege: error.messege
+      })
+    }
+  })
   
   router.delete("/contacts", async (req, res) => {
     try {
