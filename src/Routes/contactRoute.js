@@ -83,7 +83,7 @@ router.delete("/contacts", async (req, res) => {
     res.status(201).json({
       status: "Success",
       message: "Records deleted"
-    });
+    }); 
   }
 
   catch (e) {
