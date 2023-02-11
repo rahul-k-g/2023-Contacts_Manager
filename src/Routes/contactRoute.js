@@ -63,7 +63,7 @@ router.get('/contacts/:email', async (req, res) => {
 router.get('/search/:email', async (req, res) => {
   try {
     const email = req.params.email
-    const allcontact = await Contact.find({ email: email })
+    const allcontact = await Contact.find({$and:[{email},{user:req.userID}]})
     res.status(200).json({
       status: 'Success',
       allcontact
