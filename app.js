@@ -3,10 +3,11 @@ const mongoose = require("mongoose")
 const morgan = require("morgan")
 require('dotenv/config');
 const app= express()
+const cors = require('cors')
 var jwt = require('jsonwebtoken');
 mongoose.set('strictQuery', true);
 //connection to db
-mongoose.connect("mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority")////mongodb://localhost/contact_mern
+mongoose.connect("mongodb+srv://Chandini_S:Crystal0212@cluster0.l2pby5u.mongodb.net/?retryWrites=true&w=majority")//mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority//mongodb://localhost/contact_mern
     .then(() => console.log('database Connected!'))
     .catch((err) => console.log('Error!!! to connect the database'+err.message))
 
@@ -16,6 +17,10 @@ const userModel = require("./src/models/contactModels")
 //middlewares
 app.use(express.json()); //send back respond in json format
 app.use(morgan("tiny"));// it will give time taken when api is login to our console
+app.use(cors())
+
+
+
 
 //token verification
 const tokenVerification = (req,res,next)=>{
@@ -50,7 +55,7 @@ const tokenVerification = (req,res,next)=>{
 //routes path
 app.use("/api/v1",require("./src/Routes/userRoute"));
 
-app.use("/api/v1",require("./src/Routes/contactRoute"));
+app.use("/api/v1",tokenVerification,require("./src/Routes/contactRoute"));
 
 //Welcome Page
 app.use("/",(req,res)=>{
@@ -60,7 +65,7 @@ app.use("/",(req,res)=>{
     })
   })
 
-
+   
 //bad request
 app.use('/*',(req, res)=>{
     res.status(404).json({

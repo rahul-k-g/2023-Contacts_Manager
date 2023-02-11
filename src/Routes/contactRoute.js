@@ -56,11 +56,13 @@ router.get('/contacts/:email', async (req, res) => {
     })
   }
 })
+
 //geting all contacts with email
 router.get('/search/:email', async (req, res) => {
   try {
     const email = req.params.email
     const allcontact = await Contact.find({ email: email })
+
     res.status(200).json({
       status: 'Success',
       allcontact
@@ -83,7 +85,9 @@ router.delete("/contacts", async (req, res) => {
     res.status(201).json({
       status: "Success",
       message: "Records deleted"
+
     }); 
+
   }
 
   catch (e) {
@@ -94,3 +98,4 @@ router.delete("/contacts", async (req, res) => {
   }
 });
 module.exports = router
+
