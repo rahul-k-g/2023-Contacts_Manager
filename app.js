@@ -7,7 +7,7 @@ const cors = require('cors')
 var jwt = require('jsonwebtoken');
 mongoose.set('strictQuery', true);
 //connection to db
-mongoose.connect("mongodb://localhost/contact_mern")//mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority//mongodb://localhost/contact_mern
+mongoose.connect("mongodb+srv://Chandini_S:Crystal0212@cluster0.l2pby5u.mongodb.net/?retryWrites=true&w=majority")//mongodb+srv://dushyantBhardwaj:dushyant@cluster0.iemcleq.mongodb.net/?retryWrites=true&w=majority//mongodb://localhost/contact_mern
     .then(() => console.log('database Connected!'))
     .catch((err) => console.log('Error!!! to connect the database'+err.message))
 
@@ -65,7 +65,7 @@ app.use("/",(req,res)=>{
     })
   })
 
-
+   
 //bad request
 app.use('/*',(req, res)=>{
     res.status(404).json({
